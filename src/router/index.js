@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/Home';
 
 const routes = [
   {
@@ -8,7 +7,7 @@ const routes = [
     meta: {
       layout: 'main'
     },
-    component: Home
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/auth',
