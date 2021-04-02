@@ -1,10 +1,14 @@
 <template>
-  <button type="submit" :class="`button button--${type}`">{{title}}</button>
+  <button :type="type" :class="`button button--${mode}`">{{title}}</button>
 </template>
 
 <script>
 export default {
-  props: ['type', 'title']
+  props: {
+    type: String,
+    mode: String,
+    title: String
+  }
 }
 </script>
 

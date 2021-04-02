@@ -1,10 +1,10 @@
 <template>
-  <aside :class="['drawer', {'drawer--shown': isShown}]">
+  <aside :class="['drawer', {'drawer--open': isOpen}]">
     <div class="drawer__head">
-      <h1 v-if="isShown" class="drawer__title">CRM</h1>
+      <h1 v-if="isOpen" class="drawer__title">CRM</h1>
       <a href="javascript:void(0)" class="drawer__burger" @click="toggleDrawer"></a>
     </div>
-    <nav class="drawer__nav">
+    <nav class="drawer__nav" v-if="isOpen">
       <router-link
         v-for="link in links"
         :key="link.url"
@@ -15,21 +15,37 @@
         {{link.title}}
       </router-link>
     </nav>
+    <p v-if="isOpen" class="drawer__date">{{dateFormat}}</p>
   </aside>
 </template>
 
 <script>
 export default {
   data: () => ({
-    isShown: true,
+    isOpen: false,
+    date: new Date(),
     links: [
-      {title: 'Главная', url: '/', exact: true},
-      {title: 'Вход', url: '/auth'}
+      {title: 'Главная', url: '/', exact: true}
     ]
   }),
+  beforeMount() {
+    const isOpen = JSON.parse(localStorage.getItem('drawerIsOpen'));
+
+    if (isOpen !== null) {
+      this.isOpen = isOpen;
+    }
+  },
   methods: {
     toggleDrawer() {
-      this.isShown = !this.isShown;
+      const { isOpen } = this;
+
+      this.isOpen = !isOpen;
+      localStorage.setItem('drawerIsOpen', JSON.stringify(!isOpen));
+    }
+  },
+  computed: {
+    dateFormat() {
+      return new Intl.DateTimeFormat('ru-Ru', {day: 'numeric', month: 'long', year: 'numeric'}).format(this.date);
     }
   }
 }
@@ -37,25 +53,27 @@ export default {
 
 <style lang="sass">
 .drawer
+  display: flex
+  flex-flow: column nowrap
+  justify-content: flex-start
+  align-items: stretch
   height: 100vh
   width: 50px
   background-color: #161B25
-  &--shown
+  &--open
     width: 240px
     .drawer
       &__head
-        padding: 20px
+        padding: 15px 20px
       &__burger:before
         left: -11px
         transform: rotate(0)
-      &__nav
-        display: block
   &__head
     display: flex
     flex-flow: row nowrap
     justify-content: space-between
     align-items: center
-    height: 82px
+    height: 72px
   &__title
     color: #fff
     letter-spacing: 0.2em
@@ -85,8 +103,6 @@ export default {
         image: url('../assets/img/icons/arrow.svg')
         position: center
         repeat: no-repeat
-  &__nav
-    display: none
   &__link
     display: block
     padding: 5px 5px 5px 20px
@@ -98,4 +114,9 @@ export default {
       color: #dedede
     &--active
       background-color: transparentize(#F6F7F8, .9)
+  &__date
+    margin-top: auto
+    padding: 15px 20px
+    color: #aaa
+    font-size: 13px
 </style>

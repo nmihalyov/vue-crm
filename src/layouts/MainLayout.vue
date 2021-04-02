@@ -2,6 +2,7 @@
   <div class="page-wrapper">
     <Drawer />
     <main class="content">
+      <Header :title="this.$route.meta.title" />
       <router-view/>
     </main>
   </div>
@@ -9,10 +10,12 @@
 
 <script>
 import Drawer from '@/components/Drawer';
+import Header from '@/components/Header';
 
 export default {
   components: {
-    Drawer
+    Drawer,
+    Header
   }
 }
 </script>
@@ -28,4 +31,5 @@ export default {
 
 .content
   flex: 1
+  background-color: #F6F7F8
 </style>
