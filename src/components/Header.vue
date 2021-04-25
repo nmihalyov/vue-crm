@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$router.push('/auth?message=logout');
+      this.$router.push('/auth');
     }
   }
 }

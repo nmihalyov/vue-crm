@@ -37,7 +37,7 @@ export default {
     password: ''
   }),
   methods: {
-    loginHandler() {
+    async loginHandler() {
       if (this.v$.$invalid) {
         this.v$.$touch();
       } else {
@@ -46,7 +46,10 @@ export default {
           password: this.password
         };
 
-        this.$router.push('/');
+        try {
+          await this.$store.dispatch('login', formData);
+          this.$router.push('/');
+        } catch (e) {}
       }
     }
   },
