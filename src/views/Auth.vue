@@ -17,7 +17,7 @@
         :error="v$.password.$error"
         errorText="пароль должен содержать не менее 6 символов" />
     </div>
-    <Button type="submit" mode="secondary" title="Войти" @click.prevent="loginHandler" />
+    <Button type="submit" mode="secondary" title="Войти" :loading="queryProcess" @click.prevent="loginHandler" />
   </form>
 </template>
 
@@ -26,6 +26,7 @@ import useVuelidate from '@vuelidate/core';
 import { required, email, minLength } from '@vuelidate/validators';
 import Button from '@/components/_ui/Button';
 import Input from '@/components/_ui/Input';
+import messages from '@/utils/messages';
 
 export default {
   components: {
@@ -34,10 +35,13 @@ export default {
   },
   data: () => ({
     email: '',
-    password: ''
+    password: '',
+    queryProcess: false
   }),
   methods: {
     async loginHandler() {
+      this.queryProcess = true;
+
       if (this.v$.$invalid) {
         this.v$.$touch();
       } else {
@@ -51,6 +55,13 @@ export default {
           this.$router.push('/');
         } catch (e) {}
       }
+
+      this.queryProcess = false;
+    }
+  },
+  mounted() {
+    if (messages[this.$route.query.message]) {
+      this.$message(messages[this.$route.query.message]);
     }
   },
   setup: () => ({

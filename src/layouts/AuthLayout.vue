@@ -4,6 +4,23 @@
   </div>
 </template>
 
+<script>
+import messages from '@/utils/messages';
+
+export default {
+  computed: {
+    error() {
+      return this.$store.getters.error;
+    }
+  },
+  watch: {
+    error(firebaseError) {
+      this.$message(messages[firebaseError.code] || 'Неизвестная ошибка');
+    }
+  }
+}
+</script>
+
 <style lang="sass">
 .auth
   display: flex

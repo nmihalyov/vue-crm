@@ -25,7 +25,9 @@ export default {
     isOpen: false,
     date: new Date(),
     links: [
-      {title: 'Главная', url: '/', exact: true}
+      {title: 'Главная', url: '/', exact: true},
+      {title: 'Клиенты', url: '/clients'},
+      {title: 'Объекты', url: '/objects'}
     ]
   }),
   beforeMount() {
@@ -53,6 +55,7 @@ export default {
 
 <style lang="sass">
 .drawer
+  flex-shrink: 0
   display: flex
   flex-flow: column nowrap
   justify-content: flex-start
@@ -74,6 +77,7 @@ export default {
     justify-content: space-between
     align-items: center
     height: 72px
+    margin-bottom: 20px
   &__title
     color: #fff
     letter-spacing: 0.2em

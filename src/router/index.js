@@ -11,6 +11,24 @@ const routes = [
     component: () => import('../views/Home.vue')
   },
   {
+    path: '/clients',
+    name: 'Clients',
+    meta: {
+      layout: 'main',
+      title: 'Клиенты'
+    },
+    component: () => import('../views/Clients.vue')
+  },
+  {
+    path: '/objects',
+    name: 'Objects',
+    meta: {
+      layout: 'main',
+      title: 'Объекты'
+    },
+    component: () => import('../views/Objects.vue')
+  },
+  {
     path: '/auth',
     name: 'Auth',
     meta: {

@@ -13,6 +13,11 @@ import Drawer from '@/components/Drawer';
 import Header from '@/components/Header';
 
 export default {
+  async mounted() {
+    if (!Object.keys(this.$store.getters.info).length) {
+      await this.$store.dispatch('fetchInfo');
+    }
+  },
   components: {
     Drawer,
     Header
@@ -28,8 +33,10 @@ export default {
   justify-content: flex-start
   align-items: stretch
   height: 100vh
+  max-width: 100%
 
 .content
+  overflow: hidden
   flex: 1
   background-color: #F6F7F8
 </style>
