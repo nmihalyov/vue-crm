@@ -74,6 +74,7 @@ export default {
         position: center bottom
         repeat: no-repeat
     &-menu
+      z-index: 2
       overflow: hidden
       position: absolute
       top: calc(100% + 5px)

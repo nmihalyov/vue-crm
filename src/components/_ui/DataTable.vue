@@ -67,7 +67,7 @@ export default {
       this.sortedData = sortedData;
     },
     writeSortToLocalStorage(key, value) {
-      const sort = JSON.parse(localStorage.getItem('tableSort'));
+      const sort = JSON.parse(localStorage.getItem('vue-crm:tableSort'));
       const newSort = {
         ...sort,
         [this.tableId]: {
@@ -76,22 +76,27 @@ export default {
         }
       };
 
-      localStorage.setItem('tableSort', JSON.stringify(newSort));
+      localStorage.setItem('vue-crm:tableSort', JSON.stringify(newSort));
     }
   },
   created() {
-    const sortOptions = JSON.parse(localStorage.getItem('tableSort'))[this.tableId];
+    const sortOptions = localStorage.getItem('vue-crm:tableSort') ? JSON.parse(localStorage.getItem('vue-crm:tableSort'))[this.tableId] : null;
     const data = Array.from(this.data);
+
     data.shift(0, 1);
     this.sortedData = data;
     this.headData = this.head;
-    this.sortData(sortOptions);
+
+    if (sortOptions) {
+      this.sortData(sortOptions);
+    }
   }
 }
 </script>
 
 <style lang="sass">
 .datatable
+  min-height: 100%
   width: 100%
   display: flex
   overflow-x: scroll

@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
+import firebase from 'firebase/app';
 
 const routes = [
   {
@@ -6,6 +7,7 @@ const routes = [
     name: 'Home',
     meta: {
       layout: 'main',
+      auth: true,
       title: 'Главная'
     },
     component: () => import('../views/Home.vue')
@@ -15,6 +17,7 @@ const routes = [
     name: 'Clients',
     meta: {
       layout: 'main',
+      auth: true,
       title: 'Клиенты'
     },
     component: () => import('../views/Clients.vue')
@@ -24,6 +27,7 @@ const routes = [
     name: 'Objects',
     meta: {
       layout: 'main',
+      auth: true,
       title: 'Объекты'
     },
     component: () => import('../views/Objects.vue')
@@ -36,11 +40,22 @@ const routes = [
     },
     component: () => import('../views/Auth.vue')
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
 
-export default router
+router.beforeEach((to, from, next) => {
+  const currentUser = firebase.auth().currentUser;
+  const requireAuth = to.matched.some(record => record.meta.auth);
+
+  if (requireAuth && !currentUser) {
+    next('/auth?message=login');
+  } else {
+    next();
+  }
+});
+
+export default router;

@@ -30,3 +30,8 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+.clients
+  height: 100%
+</style>

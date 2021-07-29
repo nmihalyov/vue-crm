@@ -22,7 +22,7 @@
 <script>
 export default {
   data: () => ({
-    isOpen: false,
+    isOpen: true,
     date: new Date(),
     links: [
       {title: 'Главная', url: '/', exact: true},
@@ -31,7 +31,7 @@ export default {
     ]
   }),
   beforeMount() {
-    const isOpen = JSON.parse(localStorage.getItem('drawerIsOpen'));
+    const isOpen = JSON.parse(localStorage.getItem('vue-crm:drawerIsOpen'));
 
     if (isOpen !== null) {
       this.isOpen = isOpen;
@@ -42,7 +42,7 @@ export default {
       const { isOpen } = this;
 
       this.isOpen = !isOpen;
-      localStorage.setItem('drawerIsOpen', JSON.stringify(!isOpen));
+      localStorage.setItem('vue-crm:drawerIsOpen', JSON.stringify(!isOpen));
     }
   },
   computed: {

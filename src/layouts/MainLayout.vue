@@ -3,7 +3,9 @@
     <Drawer />
     <main class="content">
       <Header :title="this.$route.meta.title" />
-      <router-view/>
+      <div class="inner">
+        <router-view/>
+      </div>
     </main>
   </div>
 </template>
@@ -11,6 +13,7 @@
 <script>
 import Drawer from '@/components/Drawer';
 import Header from '@/components/Header';
+import messages from '@/utils/messages';
 
 export default {
   async mounted() {
@@ -21,6 +24,16 @@ export default {
   components: {
     Drawer,
     Header
+  },
+  computed: {
+    error() {
+      return this.$store.getters.error;
+    }
+  },
+  watch: {
+    error(firebaseError) {
+      this.$message(messages[firebaseError.code] || 'Неизвестная ошибка');
+    }
   }
 }
 </script>
@@ -37,6 +50,12 @@ export default {
 
 .content
   overflow: hidden
+  display: flex
+  flex-direction: column
   flex: 1
   background-color: #F6F7F8
+
+.inner
+  overflow: auto
+  flex-grow: 1
 </style>

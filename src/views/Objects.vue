@@ -32,3 +32,8 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+.objects
+  height: 100%
+</style>
