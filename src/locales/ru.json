@@ -1,0 +1,42 @@
+{
+  "Menu:Logout": "Выйти",
+
+  "Page:Main": "Главная",
+  "Page:Clients": "Клиенты",
+  "Page:Properties": "Объекты",
+  "Page:Sales": "Продажи",
+
+  "Clients:Client": "Клиент",
+  "Clients:Phone": "Телефон",
+  "Clients:Deals": "Сделок",
+  "Clients:ActiveSales": "Активные сделки",
+
+  "Properties:ID": "ID",
+  "Properties:Name": "Название",
+  "Properties:Type": "Тип",
+  "Properties:Square": "Площадь, м<sup>2</sup>",
+  "Properties:Price": "Цена за м<sup>2</sup>, руб",
+  "Properties:Cost": "Стоимость, руб",
+
+  "Sales:Heading": "График продаж за",
+  "Sales:Amount": "Кол-во продаж",
+  "Sales:Revenue": "Выручка, млн. руб.",
+
+  "DataTable:Hint": "Клик на заголовок для сортировки.",
+  "DataTable:Understand": "Понятно",
+
+  "Email:Label": "почта",
+  "Password:Label": "пароль",
+  "Login:Text": "Войти",
+
+  "Error:Unknown": "Неизвестная ошибка",
+  "Error:PasswordLength": "пароль должен содержать не менее 6 символов",
+  "Error:EmailEmpty": "почта не может быть пустой",
+  "Error:EmailFormat": "неверный формат почты",
+
+  "Message:Logout": "Вы вышли из системы",
+  "Message:Login": "Вы не вошли в систему",
+  "Message:UserNotFound": "Пользователя с таким email не существует",
+  "Message:WrongPassword": "Неверный пароль",
+  "Message:TooManyRequests": "Слишком много попыток, попробуйте повторить позжу"
+}

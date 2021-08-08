@@ -1,0 +1,42 @@
+{
+  "Menu:Logout": "Logout",
+
+  "Page:Main": "Main",
+  "Page:Clients": "Clients",
+  "Page:Properties": "Properties",
+  "Page:Sales": "Sales",
+
+  "Clients:Client": "Client",
+  "Clients:Phone": "Phone",
+  "Clients:Deals": "Deals",
+  "Clients:ActiveSales": "Active sales",
+
+  "Properties:ID": "ID",
+  "Properties:Name": "Name",
+  "Properties:Type": "Type",
+  "Properties:Square": "Square, m<sup>2</sup>",
+  "Properties:Price": "Price for m<sup>2</sup>, rub",
+  "Properties:Cost": "Cost, rub",
+
+  "Sales:Heading": "Sales chart for",
+  "Sales:Amount": "Sales amount",
+  "Sales:Revenue": "Revenue, mln. rub.",
+
+  "DataTable:Hint": "Click heading to sort.",
+  "DataTable:Understand": "Understand",
+
+  "Email:Label": "email",
+  "Password:Label": "password",
+  "Login:Text": "Login",
+
+  "Error:Unknown": "Unknown error",
+  "Error:PasswordLength": "password must be at least 6 characters long",
+  "Error:EmailEmpty": "email cannot be empty",
+  "Error:EmailFormat": "wrong email format",
+
+  "Message:Logout": "You have been logout",
+  "Message:Login": "You are not logged in",
+  "Message:UserNotFound": "User with that email doesn't exist",
+  "Message:WrongPassword": "Wrong password",
+  "Message:TooManyRequests": "Too many requests"
+}

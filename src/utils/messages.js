@@ -1,7 +1,7 @@
 export default {
-  'logout': 'Вы вышли из системы',
-  'login': 'Вы не вошли в систему',
-  'auth/user-not-found': 'Пользователя с таким email не существует',
-  'auth/wrong-password': 'Неверный пароль',
-  'auth/too-many-requests': 'Слишком много попыток, попробуйте повторить позже'
+  'logout': 'Message:Logout',
+  'login': 'Message:Login',
+  'auth/user-not-found': 'Message:UserNotFound',
+  'auth/wrong-password': 'Message:WrongPassword',
+  'auth/too-many-requests': 'Message:TooManyRequests'
 }

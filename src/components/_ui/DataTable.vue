@@ -3,13 +3,17 @@
     <div class="datatable__wrapper">
       <div class="datatable__head">
         <p
-          v-for="cell in headData"
+          v-for="cell, i in headData"
           :key="cell.key"
           :style="`width: ${cell.width}px`"
           class="datatable__cell"
           :data-sort="cell.sorted"
           @click="this.sortData({key: cell.key, value: $event.currentTarget.dataset.sort})">
-          <span v-html="cell.name"></span>
+          <span v-html="$filters.localize(cell.name)"></span>
+          <div v-if="i === 0 && !this.tooltipIsHidden" class="datatable__tooltip">
+            <span>{{$filters.localize('DataTable:Hint')}}</span>
+            <button class="datatable__tooltip-btn" @click.stop="hideTooltip">{{$filters.localize('DataTable:Understand')}}</button>
+          </div>
         </p>
       </div>
       <div class="datatable__body">
@@ -34,62 +38,70 @@ export default {
   },
   data() {
     return {
-      sortedData: []
+      sortedData: [],
+      tooltipIsHidden: false
     }
   },
   methods: {
     sortData({ key, value }) {
       const sortedData = Array.from(this.sortedData).sort((a, b) => {
-        const aValue = a[key];
-        const bValue = b[key];
+        const aValue = a[key]
+        const bValue = b[key]
 
         if (value !== 'asc') {
-          return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
+          return aValue > bValue ? 1 : aValue < bValue ? -1 : 0
         } else {
-          return aValue < bValue ? 1 : aValue > bValue ? -1 : 0;
+          return aValue < bValue ? 1 : aValue > bValue ? -1 : 0
         }
-      });
+      })
 
       if (value !== 'asc') {
         this.headData.map(el => {
-          el.sorted = el.key === key ? 'asc' : null;
-        });
+          el.sorted = el.key === key ? 'asc' : null
+        })
 
-        this.writeSortToLocalStorage(key, 'desc');
+        this.writeSortToLocalStorage(key, 'desc')
       } else {
         this.headData.map(el => {
-          el.sorted = el.key === key ? 'desc' : null;
-        });
+          el.sorted = el.key === key ? 'desc' : null
+        })
 
-        this.writeSortToLocalStorage(key, 'asc');
+        this.writeSortToLocalStorage(key, 'asc')
       }
 
-      this.sortedData = sortedData;
+      this.sortedData = sortedData
     },
     writeSortToLocalStorage(key, value) {
-      const sort = JSON.parse(localStorage.getItem('vue-crm:tableSort'));
+      const sort = JSON.parse(localStorage.getItem('vue-crm:tableSort'))
       const newSort = {
         ...sort,
         [this.tableId]: {
           key,
           value
         }
-      };
+      }
 
-      localStorage.setItem('vue-crm:tableSort', JSON.stringify(newSort));
+      localStorage.setItem('vue-crm:tableSort', JSON.stringify(newSort))
+    },
+    hideTooltip() {
+      this.tooltipIsHidden = true;
+      localStorage.setItem('vue-crm:tooltipIsHidden', 'true');
     }
   },
   created() {
-    const sortOptions = localStorage.getItem('vue-crm:tableSort') ? JSON.parse(localStorage.getItem('vue-crm:tableSort'))[this.tableId] : null;
-    const data = Array.from(this.data);
+    const sortOptions = localStorage.getItem('vue-crm:tableSort') ? JSON.parse(localStorage.getItem('vue-crm:tableSort'))[this.tableId] : null
+    const data = Array.from(this.data)
 
-    data.shift(0, 1);
-    this.sortedData = data;
-    this.headData = this.head;
+    data.shift(0, 1)
+    this.sortedData = data
+    this.headData = this.head
 
     if (sortOptions) {
-      this.sortData(sortOptions);
+      this.sortData(sortOptions)
     }
+  },
+  mounted() {
+    this.tooltipIsHidden = JSON.parse(localStorage.getItem('vue-crm:tooltipIsHidden'));
   }
 }
 </script>
@@ -106,6 +118,7 @@ export default {
   &__head
     padding: 10px 20px
     .datatable__cell
+      position: relative
       cursor: pointer
       color: #969BA3
       font-size: 12px
@@ -113,8 +126,8 @@ export default {
         transform: rotate(-90deg)
       &[data-sort="desc"] span:after
         transform: rotate(90deg)
-      &[data-sort="asc"] span,
-      &[data-sort="desc"] span
+      &[data-sort="asc"] > span,
+      &[data-sort="desc"] > span
         position: relative
         &:after
           content: ''
@@ -128,6 +141,34 @@ export default {
             size: contain
             position: center
             repeat: no-repeat
+  &__tooltip
+    position: absolute
+    pointer-events: none
+    bottom: 0
+    left: -10px
+    padding: 5px 10px
+    background-color: rgba(0, 0, 0, 0.8)
+    transform: translateY(120%)
+    cursor: default
+    font-size: 13px
+    &:before
+      position: absolute
+      content: ''
+      top: -6px
+      left: 20px
+      border-style: solid
+      border-width: 0 4px 6px 4px
+      border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent
+    span
+      color: #fff
+    &-btn
+      pointer-events: all
+      margin-left: 10px
+      padding: 0
+      border: none
+      color: #fff
+      cursor: pointer
+      text-decoration: underline
   &__row
     padding: 15px 20px
     border-top: 1px solid transparentize(#333, .9)

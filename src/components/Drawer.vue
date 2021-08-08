@@ -12,7 +12,7 @@
         active-class="drawer__link--active"
         :to="link.url"
         :exact="link.exact">
-        {{link.title}}
+        {{$filters.localize(link.title)}}
       </router-link>
     </nav>
     <p v-if="isOpen" class="drawer__date">{{dateFormat}}</p>
@@ -25,9 +25,10 @@ export default {
     isOpen: true,
     date: new Date(),
     links: [
-      {title: 'Главная', url: '/', exact: true},
-      {title: 'Клиенты', url: '/clients'},
-      {title: 'Объекты', url: '/objects'}
+      {title: 'Page:Main', url: '/', exact: true},
+      {title: 'Page:Clients', url: '/clients'},
+      {title: 'Page:Properties', url: '/properties'},
+      {title: 'Page:Sales', url: '/sales'}
     ]
   }),
   beforeMount() {
@@ -47,7 +48,7 @@ export default {
   },
   computed: {
     dateFormat() {
-      return new Intl.DateTimeFormat('ru-Ru', {day: 'numeric', month: 'long', year: 'numeric'}).format(this.date);
+      return new Intl.DateTimeFormat(this.$store.getters.locale, {day: 'numeric', month: 'long', year: 'numeric'}).format(this.date);
     }
   }
 }
@@ -117,6 +118,7 @@ export default {
     &:hover
       color: #dedede
     &--active
+      pointer-events: none
       background-color: transparentize(#F6F7F8, .9)
   &__date
     margin-top: auto

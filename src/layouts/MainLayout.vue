@@ -32,7 +32,7 @@ export default {
   },
   watch: {
     error(firebaseError) {
-      this.$message(messages[firebaseError.code] || 'Неизвестная ошибка');
+      this.$message(messages[firebaseError.code] || $filters.localize('Error:Unknown'));
     }
   }
 }

@@ -6,6 +6,7 @@
 
 <script>
 import messages from '@/utils/messages';
+import localize from '@/filters/localize.filter';
 
 export default {
   computed: {
@@ -15,7 +16,7 @@ export default {
   },
   watch: {
     error(firebaseError) {
-      this.$message(messages[firebaseError.code] || 'Неизвестная ошибка');
+      this.$message(localize(messages[firebaseError.code]) || localize('Error:Unknown'));
     }
   }
 }

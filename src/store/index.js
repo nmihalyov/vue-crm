@@ -5,9 +5,13 @@ import info from './info'
 
 export default createStore({
   state: {
-    error: null
+    error: null,
+    locale: localStorage.getItem('vue-crm:locale') || 'ru-Ru'
   },
   mutations: {
+    setLocale(state, locale) {
+      state.locale = locale;
+    },
     setError(state, error) {
       state.error = error;
     },
@@ -22,15 +26,19 @@ export default createStore({
       } catch (e) {
       }
     },
-    async fetchObjects() {
+    async fetchProperties() {
       try {
-        return (await firebase.database().ref(`/objects`).once('value')).val();
-      } catch (e) {
-      }
+        return (await firebase.database().ref(`/properties`).once('value')).val();
+      } catch (e) {}
+    },
+    changeLocale({ commit }, locale) {
+      localStorage.setItem('vue-crm:locale', locale);
+      commit('setLocale', locale);
     }
   },
   getters: {
-    error: state => state.error
+    error: state => state.error,
+    locale: state => state.locale
   },
   modules: {
     auth,

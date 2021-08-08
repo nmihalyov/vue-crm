@@ -3,21 +3,21 @@
     <h1 class="login__title">CRM</h1>
     <div class="login__inputs">
       <Input
-        label="почта"
+        :label="$filters.localize('Email:Label')"
         type="email"
         name="email"
         v-model:value="email"
         :error="v$.email.$error"
-        :errorText="!email.length ? 'почта не может быть пустой' : 'неверный формат почты'" />
+        :errorText="!email.length ? $filters.localize('Error:EmailEmpty') : $filters.localize('Error:EmailFormat')" />
       <Input
-        label="пароль"
+        :label="$filters.localize('Password:Label')"
         type="password"
         name="password"
         v-model:value="password"
         :error="v$.password.$error"
-        errorText="пароль должен содержать не менее 6 символов" />
+        :errorText="$filters.localize('Error:PasswordLength')" />
     </div>
-    <Button type="submit" mode="secondary" title="Войти" :loading="queryProcess" @click.prevent="loginHandler" />
+    <Button type="submit" mode="secondary" :title="$filters.localize('Login:Text')" :loading="queryProcess" @click.prevent="loginHandler" />
   </form>
 </template>
 
@@ -27,6 +27,7 @@ import { required, email, minLength } from '@vuelidate/validators';
 import Button from '@/components/_ui/Button';
 import Input from '@/components/_ui/Input';
 import messages from '@/utils/messages';
+import localize from '@/filters/localize.filter';
 
 export default {
   components: {
@@ -61,7 +62,7 @@ export default {
   },
   mounted() {
     if (messages[this.$route.query.message]) {
-      this.$message(messages[this.$route.query.message]);
+      this.$message(localize(messages[this.$route.query.message]));
     }
   },
   setup: () => ({

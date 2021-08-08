@@ -8,7 +8,7 @@ const routes = [
     meta: {
       layout: 'main',
       auth: true,
-      title: 'Главная'
+      title: 'Page:Main'
     },
     component: () => import('../views/Home.vue')
   },
@@ -18,19 +18,29 @@ const routes = [
     meta: {
       layout: 'main',
       auth: true,
-      title: 'Клиенты'
+      title: 'Page:Clients'
     },
     component: () => import('../views/Clients.vue')
   },
   {
-    path: '/objects',
-    name: 'Objects',
+    path: '/properties',
+    name: 'Properties',
     meta: {
       layout: 'main',
       auth: true,
-      title: 'Объекты'
+      title: 'Page:Properties'
     },
-    component: () => import('../views/Objects.vue')
+    component: () => import('../views/Properties.vue')
+  },
+  {
+    path: '/sales',
+    name: 'Sales',
+    meta: {
+      layout: 'main',
+      auth: true,
+      title: 'Page:Sales'
+    },
+    component: () => import('../views/Sales.vue')
   },
   {
     path: '/auth',

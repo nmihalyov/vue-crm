@@ -15,10 +15,10 @@ export default {
   data: () => ({
     loading: true,
     head: [
-      {key: 'name', name: 'Клиент'},
-      {key: 'phone', name: 'Телефон'},
-      {key: 'deals', name: 'Сделок'},
-      {key: 'active_sales', name: 'Активные продажи'}
+      {key: 'name', name: 'Clients:Client'},
+      {key: 'phone', name: 'Clients:Phone'},
+      {key: 'deals', name: 'Clients:Deals'},
+      {key: 'active_sales', name: 'Clients:ActiveSales'}
     ],
     widths: [280, 175, 130, 175],
     clients: null
